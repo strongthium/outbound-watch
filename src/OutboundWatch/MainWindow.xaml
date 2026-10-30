@@ -38,6 +38,7 @@
         <RadioButton x:Name="TotalsNav" Style="{StaticResource NavItem}" Tag="&#xE9D2;" Content="Totals" Checked="Nav_Checked" />
         <RadioButton x:Name="ExpectedNav" Style="{StaticResource NavItem}" Tag="&#xE73E;" Content="Expected" Checked="Nav_Checked" />
         <RadioButton x:Name="SettingsNav" Style="{StaticResource NavItem}" Tag="&#xE713;" Content="Settings" Checked="Nav_Checked" />
+        <RadioButton x:Name="AboutNav" Style="{StaticResource NavItem}" Tag="&#xE946;" Content="About" Checked="Nav_Checked" />
       </StackPanel>
     </DockPanel>
 

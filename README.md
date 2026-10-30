@@ -9,7 +9,7 @@ the program, the name that was looked up, the address, the network (AS number an
 long the connection was open, and how much it sent and received. It shows them live and keeps them as history. You can write lists of the places you expect programs to connect to, and the tray tells you when one connects somewhere
 else.
 
-It runs on Windows 10 and 11, is one file of about 3 MB with nothing to install, and sends nothing anywhere.
+It runs on Windows 10 and 11, is one file of about 3 MB with nothing to install, and sends nothing about your connections anywhere.
 
 ![Live](docs/live.png)
 
@@ -160,6 +160,12 @@ open-source programs, Windows' services and one made-up updater.
 Some antivirus programs flag a new, unsigned program that reads the network and can start at sign-in with
 administrator rights. If yours quarantines `outbound-watch`, check the file's `SHA256SUMS` and allow it there.
 
+## About and updates
+
+**About** (the last page down the side) says who makes `outbound-watch`, with links to Strongthium, and asks GitHub whether there's a newer version. If there is, **Update** downloads the release, checks it against the release's `SHA256SUMS`, replaces the program and starts it again. The history, lists and settings are in their own folder, and stay as they are. If the program's folder can't be changed without an administrator, it says so, and **What's new** leads to the release to download by hand. The checksums come with the release, so they catch a damaged download, not a tampered release.
+
+GitHub is asked only when About is opened, again if it's still open an hour later, or when **Check again** is pressed. `api.github.com` sees that the question came from your address, and which program and version asked.
+
 ## Your data
 
 Everything stays on the PC, in `%LocalAppData%\Strongthium\outbound-watch`: the history (`outbound-watch.db`, SQLite),
@@ -167,7 +173,7 @@ the expected lists, the settings and DB-IP's files. History is kept for 90 days 
 30 days, a year or everything). **Clear the history…** in Settings deletes it.
 
 The only things it sends over the network are the download of DB-IP's files from `download.db-ip.com`, and, unless
-you turn them off, reverse lookups of addresses through the PC's own DNS server, as `nslookup` would.
+you turn them off, reverse lookups of addresses through the PC's own DNS server, as `nslookup` would, and About's question to `api.github.com`, for the latest version. That one shows up among the connections too.
 
 ## Building
 

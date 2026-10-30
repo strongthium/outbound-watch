@@ -11,19 +11,19 @@ public interface IPage
 }
 
 /// <summary>
-/// The connections: Live, History, Totals, Expected and Settings, chosen down the side. Closing it hides it; the
+/// The connections: Live, History, Totals, Expected, Settings and About, chosen down the side. Closing it hides it; the
 /// watching goes on in the tray.
 /// </summary>
 public sealed partial class MainWindow : Window
 {
-    public const int LivePage = 0, HistoryPage = 1, TotalsPage = 2, ExpectedPage = 3, SettingsPage = 4;
+    public const int LivePage = 0, HistoryPage = 1, TotalsPage = 2, ExpectedPage = 3, SettingsPage = 4, AboutPage = 5;
 
     private readonly RadioButton[] nav;
     private readonly Func<FrameworkElement>[] makers =
     [
-        () => new LivePage(), () => new HistoryPage(), () => new TotalsPage(), () => new ExpectedPage(), () => new SettingsPage(),
+        () => new LivePage(), () => new HistoryPage(), () => new TotalsPage(), () => new ExpectedPage(), () => new SettingsPage(), () => new AboutPage(),
     ];
-    private readonly FrameworkElement?[] pages = new FrameworkElement?[5];
+    private readonly FrameworkElement?[] pages = new FrameworkElement?[6];
     private bool allowClose;
 
     public MainWindow()
@@ -31,7 +31,7 @@ public sealed partial class MainWindow : Window
         InitializeComponent();
         Icon = App.Icon;
         Logo.Source = App.Icon;
-        nav = [LiveNav, HistoryNav, TotalsNav, ExpectedNav, SettingsNav];
+        nav = [LiveNav, HistoryNav, TotalsNav, ExpectedNav, SettingsNav, AboutNav];
         ShowMode();
         Navigate(Program.StartView switch
         {

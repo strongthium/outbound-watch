@@ -56,12 +56,8 @@ internal static class Program
             }
         }
 
-        // Restarted as administrator: the copy that started this one is quitting, and lets go of the lock as it does.
-        if (waitFor is { } other)
-        {
-            try { Process.GetProcessById(other).WaitForExit(15_000); }
-            catch (ArgumentException) { }
-        }
+        // Restarted as administrator or updated: the copy that started this one is quitting, and lets go of the lock as it does.
+        Updater.Tidy(waitFor);
 
         Directory.CreateDirectory(DataDirectory);
         // One copy a user: two would watch and save everything twice. Starting it again shows the copy that's running.
