@@ -1,0 +1,96 @@
+<UserControl x:Class="Strongthium.OutboundWatch.App.ExpectedPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- The expected lists: each turned on or off, and its rules, a line each, written as text, with what each word means
+       beside them. A connection that no list that's on has a rule for is unexpected. -->
+  <DockPanel Margin="32,26,32,24">
+    <StackPanel DockPanel.Dock="Top" Margin="0,0,0,16">
+      <TextBlock Text="Expected" Style="{StaticResource PageTitle}" />
+      <TextBlock Style="{StaticResource Muted}" FontSize="14" Margin="0,2,0,0" TextWrapping="Wrap"
+                 Text="Lists of where programs are expected to connect. With a list on, a connection that isn't on any list that's on is unexpected, and the tray tells of it." />
+    </StackPanel>
+
+    <Grid>
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="250" />
+        <ColumnDefinition Width="20" />
+        <ColumnDefinition Width="*" />
+        <ColumnDefinition Width="20" />
+        <ColumnDefinition Width="300" />
+      </Grid.ColumnDefinitions>
+
+      <!-- The lists -->
+      <DockPanel>
+        <WrapPanel DockPanel.Dock="Bottom" Margin="0,10,0,0">
+          <Button Padding="10,5" Margin="0,0,6,6" Click="New_Click">
+            <StackPanel Orientation="Horizontal">
+              <TextBlock Text="&#xE710;" Style="{StaticResource Icon}" FontSize="12" Margin="0,0,8,0" />
+              <TextBlock Text="New list" />
+            </StackPanel>
+          </Button>
+          <Button Padding="10,5" Margin="0,0,6,6" Click="Import_Click" Content="Import…" ToolTip="Add a list from a text file of rules" />
+          <Button x:Name="ExportButton" Padding="10,5" Margin="0,0,6,6" Click="Export_Click" Content="Export…" ToolTip="Save the list as a text file" />
+        </WrapPanel>
+        <ListBox x:Name="Lists" SelectionChanged="Lists_SelectionChanged" Background="Transparent" BorderThickness="0">
+          <ListBox.ItemTemplate>
+            <DataTemplate>
+              <StackPanel Orientation="Horizontal" Margin="0,4">
+                <CheckBox IsChecked="{Binding Enabled, Mode=OneWay}" Click="Enabled_Click" VerticalAlignment="Center" MinWidth="0" ToolTip="On: connections are judged by it" />
+                <StackPanel Margin="4,0,0,0">
+                  <TextBlock Text="{Binding Name}" FontWeight="SemiBold" />
+                  <TextBlock Text="{Binding Summary}" Style="{StaticResource Caption}" />
+                </StackPanel>
+              </StackPanel>
+            </DataTemplate>
+          </ListBox.ItemTemplate>
+        </ListBox>
+      </DockPanel>
+
+      <!-- The list chosen -->
+      <DockPanel Grid.Column="2" x:Name="Editor">
+        <Grid DockPanel.Dock="Top" Margin="0,0,0,10">
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+          </Grid.ColumnDefinitions>
+          <TextBox x:Name="NameBox" FontSize="16" FontWeight="SemiBold" TextChanged="Edited" ToolTip="The list's name" />
+          <Button Grid.Column="1" Margin="10,0,0,0" Padding="10,5" Click="Delete_Click" ToolTip="Delete the list">
+            <TextBlock Text="&#xE74D;" Style="{StaticResource Icon}" FontSize="14" />
+          </Button>
+        </Grid>
+        <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" Margin="0,10,0,0">
+          <Button x:Name="SaveButton" Content="Save" Padding="18,5" Style="{DynamicResource AccentButtonStyle}" Click="Save_Click" IsEnabled="False" />
+          <Button x:Name="RevertButton" Content="Undo changes" Padding="12,5" Margin="8,0,0,0" Click="Revert_Click" IsEnabled="False" />
+          <TextBlock x:Name="MatchText" Style="{StaticResource Caption}" VerticalAlignment="Center" Margin="16,0,0,0" />
+        </StackPanel>
+        <TextBlock DockPanel.Dock="Bottom" x:Name="ErrorsText" Margin="0,8,0,0" TextWrapping="Wrap"
+                   Foreground="{DynamicResource SystemFillColorCriticalBrush}" Visibility="Collapsed" />
+        <TextBox x:Name="RulesBox" AcceptsReturn="True" AcceptsTab="False" TextWrapping="NoWrap" FontFamily="Cascadia Mono, Consolas"
+                 FontSize="13" VerticalContentAlignment="Top" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto"
+                 TextChanged="Edited" />
+      </DockPanel>
+      <Border Grid.Column="2" x:Name="NoList" Style="{StaticResource Card}" VerticalAlignment="Top" Visibility="Collapsed">
+        <TextBlock Style="{StaticResource Muted}" TextWrapping="Wrap"
+                   Text="No list yet. Make one with New list, or right-click a connection on Live or History and choose Expect this." />
+      </Border>
+
+      <!-- How a rule is written -->
+      <Border Grid.Column="4" Style="{StaticResource Card}" VerticalAlignment="Top" Padding="18,14">
+        <StackPanel>
+          <TextBlock Text="A rule a line" Style="{StaticResource Heading}" FontSize="15" Margin="0,0,0,8" />
+          <TextBlock Style="{StaticResource Caption}" FontSize="13" Margin="0,0,0,10"
+                     Text="Every word on a line must match. Commas give a choice: port 80,443. * is any characters. # starts a note." />
+          <Grid x:Name="Help">
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="Auto" />
+              <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+          </Grid>
+          <TextBlock Text="Examples" Style="{StaticResource Heading}" FontSize="14" Margin="0,14,0,6" />
+          <TextBlock FontFamily="Cascadia Mono, Consolas" FontSize="12" TextWrapping="Wrap" Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                     Text="process firefox.exe port 443&#x0a;host *.example.com&#x0a;asn 64500 process updater.exe&#x0a;service wuauserv&#x0a;ip 203.0.113.0/24&#x0a;country CA,US proto udp" />
+        </StackPanel>
+      </Border>
+    </Grid>
+  </DockPanel>
+</UserControl>

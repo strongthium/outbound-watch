@@ -1,0 +1,49 @@
+<Window x:Class="Strongthium.OutboundWatch.App.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="outbound-watch"
+        Width="1460" Height="860" MinWidth="900" MinHeight="520"
+        WindowStartupLocation="CenterScreen">
+  <!-- Laid out like Windows' own Settings: the pages down the side, the page beside them on a layer of its own. Each
+       page is made the first time it's shown, so that the window comes up quickly. -->
+  <Grid>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="220" />
+      <ColumnDefinition Width="*" />
+    </Grid.ColumnDefinitions>
+
+    <DockPanel Margin="10,6,10,14">
+      <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="12,6,0,22">
+        <Image x:Name="Logo" Width="30" Height="30" />
+        <TextBlock Text="outbound-watch" FontSize="15" FontWeight="SemiBold" VerticalAlignment="Center" Margin="12,0,0,0" />
+      </StackPanel>
+      <StackPanel DockPanel.Dock="Bottom" Margin="10,0,0,0">
+        <StackPanel Orientation="Horizontal">
+          <TextBlock x:Name="ModeIcon" Style="{StaticResource Icon}" FontSize="14" VerticalAlignment="Top" Margin="0,1,10,0"
+                     Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
+          <TextBlock x:Name="ModeText" Style="{StaticResource Caption}" Width="166" />
+        </StackPanel>
+        <Button x:Name="AdminButton" Margin="0,10,0,0" Padding="8,5" HorizontalAlignment="Stretch" Click="Admin_Click"
+                ToolTip="Start it again with the rights to count bytes and see UDP: Windows asks first">
+          <StackPanel Orientation="Horizontal">
+            <TextBlock Text="&#xEA18;" Style="{StaticResource Icon}" FontSize="13" Margin="0,0,8,0" />
+            <TextBlock Text="Restart as administrator" FontSize="13" />
+          </StackPanel>
+        </Button>
+      </StackPanel>
+      <!-- In one panel, so that they are one group of choices. -->
+      <StackPanel x:Name="Nav">
+        <RadioButton x:Name="LiveNav" Style="{StaticResource NavItem}" Tag="&#xE9D9;" Content="Live" Checked="Nav_Checked" />
+        <RadioButton x:Name="HistoryNav" Style="{StaticResource NavItem}" Tag="&#xE81C;" Content="History" Checked="Nav_Checked" />
+        <RadioButton x:Name="TotalsNav" Style="{StaticResource NavItem}" Tag="&#xE9D2;" Content="Totals" Checked="Nav_Checked" />
+        <RadioButton x:Name="ExpectedNav" Style="{StaticResource NavItem}" Tag="&#xE73E;" Content="Expected" Checked="Nav_Checked" />
+        <RadioButton x:Name="SettingsNav" Style="{StaticResource NavItem}" Tag="&#xE713;" Content="Settings" Checked="Nav_Checked" />
+      </StackPanel>
+    </DockPanel>
+
+    <Border Grid.Column="1" Background="{DynamicResource LayerFillColorDefaultBrush}" BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}"
+            BorderThickness="1,1,0,0" CornerRadius="8,0,0,0">
+      <ContentControl x:Name="Page" Focusable="False" IsTabStop="False" />
+    </Border>
+  </Grid>
+</Window>

@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- Everything of outbound-watch that isn't the window: reading Windows' connection table, the kernel's network and DNS
+       events (ETW), which process and service a connection is, the address databases (country and AS), the expected
+       lists, and the history (SQLite). Kept apart from the UI so that tests/ can run it headless. -->
+  <PropertyGroup>
+    <!-- It reads Windows' tables and events: Windows only. -->
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <RootNamespace>Strongthium.OutboundWatch</RootNamespace>
+    <IsTrimmable>true</IsTrimmable>
+    <!-- LibraryImport (iphlpapi, advapi32, dnsapi, kernel32) and reading ETW's events in place are unsafe code. -->
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Data.Sqlite" Version="10.0.14" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="OutboundWatch.Tests" />
+  </ItemGroup>
+</Project>
