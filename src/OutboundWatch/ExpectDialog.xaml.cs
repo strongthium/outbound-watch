@@ -26,7 +26,7 @@ public sealed partial class ExpectDialog : Window
         if (named && Totals.Domain(c.Host) is var domain && domain != c.Host) Choice($"Any name in {domain}", $"host *.{domain}");
         Choice($"The address {c.Address}", $"ip {c.Address}");
         if (c.Place.Asn > 0) Choice($"The network {c.Place.Org} (AS{c.Place.Asn})", $"asn {c.Place.Asn}");
-        if (c.Place.Country.Length > 0) Choice($"Anywhere in {Rows.CountryName(c.Place.Country)}", $"country {c.Place.Country}");
+        if (c.Place.Country.Length > 0) Choice($"Anywhere in {Rows.CountryName(c.Place.Country)}", $"country {c.Place.Country}", Rows.Flag(c.Place.Country));
         Choice("Anywhere", "");
         var start = by switch
         {
@@ -50,9 +50,24 @@ public sealed partial class ExpectDialog : Window
         Write();
     }
 
-    private void Choice(string label, string words)
+    private void Choice(string label, string words, System.Windows.Media.ImageSource? flag = null)
     {
-        var button = new RadioButton { Content = label, GroupName = "where", Margin = new Thickness(0, 0, 0, 4) };
+        object content = label;
+        if (flag is not null)
+        {
+            var panel = new StackPanel { Orientation = Orientation.Horizontal };
+            panel.Children.Add(new Border
+            {
+                BorderThickness = new Thickness(1),
+                BorderBrush = (System.Windows.Media.Brush)FindResource("CardStrokeColorDefaultBrush"),
+                Margin = new Thickness(0, 0, 8, 0),
+                VerticalAlignment = VerticalAlignment.Center,
+                Child = new System.Windows.Controls.Image { Source = flag, Height = 14, MaxWidth = 28, Stretch = System.Windows.Media.Stretch.Uniform },
+            });
+            panel.Children.Add(new TextBlock { Text = label, VerticalAlignment = VerticalAlignment.Center });
+            content = panel;
+        }
+        var button = new RadioButton { Content = content, GroupName = "where", Margin = new Thickness(0, 0, 0, 4) };
         button.Checked += Changed;
         Choices.Children.Add(button);
         choices.Add((button, words));

@@ -16,6 +16,16 @@ public sealed partial class TotalsPage : UserControl, IPage
     {
         InitializeComponent();
         Ranges.Fill(Range, Ranges.Week);
+        var start = Program.StartBy switch
+        {
+            "network" => ByOrganization,
+            "country" => ByCountry,
+            "domain" => ByDomain,
+            "address" => ByAddress,
+            "port" => ByPort,
+            _ => ByProgram,
+        };
+        start.IsChecked = true;
     }
 
     private GroupBy By =>

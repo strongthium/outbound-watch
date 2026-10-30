@@ -129,7 +129,8 @@ when you click **Download** (on Live or in Settings), kept on the PC, and update
 Every lookup is then done in memory: no address is ever sent anywhere to be looked up.
 
 The country is where the address is used, which for a content network is often near you rather than where the company
-is.
+is. Each country is shown with its flag; the flags are [Flagpedia](https://flagpedia.net)'s, which are in the public
+domain, and are inside the program.
 
 ## Using it
 
@@ -149,6 +150,7 @@ outbound-watch --data D:\watch         # keeps the history and databases there i
 outbound-watch --sample                # a made-up PC: nothing watched, nothing saved
 outbound-watch --theme dark            # light or dark, rather than following Windows
 outbound-watch --sample --view totals  # opens on live, history, totals, expected or settings
+outbound-watch --sample --view totals --by country  # the totals by program, network, country, domain, address or port
 ```
 
 The sample uses only the addresses, AS numbers and names set aside for documentation (`192.0.2.0/24`,
@@ -209,4 +211,4 @@ dotnet run --project src/OutboundWatch -- --sample
 
 ## License
 
-MIT, see [LICENSE](LICENSE). The address data is DB-IP's, under CC BY 4.0.
+MIT, see [LICENSE](LICENSE). The address data is DB-IP's, under CC BY 4.0; the flags are Flagpedia's, public domain.

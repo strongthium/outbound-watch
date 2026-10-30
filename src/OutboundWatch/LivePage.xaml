@@ -94,7 +94,7 @@
       </ListView.ContextMenu>
       <ListView.View>
         <GridView AllowsColumnReorder="False">
-          <GridViewColumn Width="155">
+          <GridViewColumn Width="145">
             <GridViewColumn.Header><GridViewColumnHeader Tag="Program" Click="Header_Click" HorizontalContentAlignment="Left" Content="Program" /></GridViewColumn.Header>
             <GridViewColumn.CellTemplate>
               <DataTemplate>
@@ -116,7 +116,7 @@
               </DataTemplate>
             </GridViewColumn.CellTemplate>
           </GridViewColumn>
-          <GridViewColumn Width="165">
+          <GridViewColumn Width="155">
             <GridViewColumn.Header><GridViewColumnHeader Tag="Org" Click="Header_Click" HorizontalContentAlignment="Left" Content="Network" /></GridViewColumn.Header>
             <GridViewColumn.CellTemplate>
               <DataTemplate>
@@ -127,11 +127,18 @@
               </DataTemplate>
             </GridViewColumn.CellTemplate>
           </GridViewColumn>
-          <GridViewColumn Width="110">
+          <GridViewColumn Width="130">
             <GridViewColumn.Header><GridViewColumnHeader Tag="Country" Click="Header_Click" HorizontalContentAlignment="Left" Content="Country" /></GridViewColumn.Header>
             <GridViewColumn.CellTemplate>
               <DataTemplate>
-                <TextBlock Text="{Binding Country}" TextTrimming="CharacterEllipsis" ToolTip="{Binding CountryCode}" />
+                <StackPanel Orientation="Horizontal" ToolTip="{Binding CountryCode}">
+                  <Grid Width="30" Visibility="{Binding HasFlag, Converter={StaticResource VisibleIf}}">
+                    <Border BorderThickness="1" BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}" HorizontalAlignment="Left" VerticalAlignment="Center">
+                      <Image Source="{Binding Flag}" Height="14" MaxWidth="24" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality" />
+                    </Border>
+                  </Grid>
+                  <TextBlock Text="{Binding Country}" TextTrimming="CharacterEllipsis" VerticalAlignment="Center" />
+                </StackPanel>
               </DataTemplate>
             </GridViewColumn.CellTemplate>
           </GridViewColumn>

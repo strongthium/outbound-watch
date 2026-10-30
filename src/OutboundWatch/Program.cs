@@ -9,13 +9,15 @@ namespace Strongthium.OutboundWatch.App;
 /// The command line: <c>--minimized</c> starts in the tray (as it does at sign-in); <c>--data folder</c> keeps the
 /// history somewhere else; <c>--sample</c> shows a made-up PC instead of this one, nothing watched or saved;
 /// <c>--theme light|dark</c> sets the look rather than following Windows; <c>--view live|history|totals|expected|settings</c>
-/// opens on that page (for the README's pictures).
+/// opens on that page, and <c>--by program|network|country|domain|address|port</c> sets what the totals are added up by
+/// (for the README's pictures).
 /// </summary>
 internal static class Program
 {
     public static bool StartMinimized { get; private set; }
     public static bool Sample { get; private set; }
     public static string? StartView { get; private set; }
+    public static string? StartBy { get; private set; }
 
     /// <summary>Where the history and the address databases are kept: <see cref="Database.DefaultDirectory"/>, or
     /// the folder given with <c>--data</c>.</summary>
@@ -42,6 +44,7 @@ internal static class Program
                 case "--sample": Sample = true; break;
                 case "--theme" when i + 1 < args.Length: theme = args[++i]; break;
                 case "--view" when i + 1 < args.Length: StartView = args[++i]; break;
+                case "--by" when i + 1 < args.Length: StartBy = args[++i]; break;
                 case "--data" when i + 1 < args.Length:
                     DataDirectory = Path.GetFullPath(args[++i]);
                     OwnDataDirectory = true;

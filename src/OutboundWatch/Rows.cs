@@ -2,6 +2,8 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Globalization;
 using System.Windows;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace Strongthium.OutboundWatch.App;
 
@@ -17,6 +19,28 @@ internal static class Rows
         try { name = new RegionInfo(code).EnglishName; }
         catch (ArgumentException) { name = code.ToUpperInvariant(); }
         return countries[code] = name;
+    }
+
+    private static readonly Dictionary<string, ImageSource?> flags = new(StringComparer.OrdinalIgnoreCase);
+
+    /// <summary>A country's flag (a picture: Windows' emoji font has no flags); null for no country, or one there's
+    /// no flag for.</summary>
+    public static ImageSource? Flag(string code)
+    {
+        if (code.Length != 2) return null;
+        if (flags.TryGetValue(code, out var flag)) return flag;
+        try
+        {
+            var image = new BitmapImage();
+            image.BeginInit();
+            image.UriSource = new Uri($"pack://application:,,,/outbound-watch;component/Assets/flags/{code.ToLowerInvariant()}.png");
+            image.CacheOption = BitmapCacheOption.OnLoad;
+            image.EndInit();
+            image.Freeze();
+            flag = image;
+        }
+        catch (IOException) { flag = null; }
+        return flags[code] = flag;
     }
 
     /// <summary>"Example Cloud GmbH, Germany".</summary>
@@ -97,6 +121,8 @@ public sealed class ConnectionRow : INotifyPropertyChanged
     public string OrgDetail => C.Place.Asn > 0 ? $"AS{C.Place.Asn}" : "";
     public string Country => Rows.CountryName(C.Place.Country);
     public string CountryCode => C.Place.Country;
+    public ImageSource? Flag => Rows.Flag(C.Place.Country);
+    public bool HasFlag => Flag is not null;
     public string Port => Totals.PortName(C.Protocol, C.RemotePort);
 
     public string StartedText => Rows.When(C.Started);
@@ -157,6 +183,8 @@ public sealed class GroupRow(GroupTotal group, GroupBy by, long largest, TimeSpa
 
     public string Name => By == GroupBy.Country ? (Group.Key.Length == 0 ? "Unknown country" : Rows.CountryName(Group.Key)) : Group.Name;
     public string Detail => By == GroupBy.Country ? Group.Key : Group.Detail;
+    public ImageSource? Flag => By == GroupBy.Country ? Rows.Flag(Group.Key) : null;
+    public bool HasFlag => Flag is not null;
     public string Connections => Sizes.Count(Group.Connections);
     public string OpenText => Sizes.Duration(Group.Open);
     public string SentText => Rows.Bytes(Group.Sent, Group.Measured);

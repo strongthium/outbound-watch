@@ -64,10 +64,17 @@
             <GridViewColumn.Header><GridViewColumnHeader Tag="Name" Click="Header_Click" HorizontalContentAlignment="Left" Content="Name" /></GridViewColumn.Header>
             <GridViewColumn.CellTemplate>
               <DataTemplate>
-                <StackPanel>
-                  <TextBlock Text="{Binding Name}" FontWeight="SemiBold" TextTrimming="CharacterEllipsis" />
-                  <TextBlock Text="{Binding Detail}" Style="{StaticResource Caption}" TextTrimming="CharacterEllipsis" TextWrapping="NoWrap" />
-                </StackPanel>
+                <DockPanel>
+                  <Grid DockPanel.Dock="Left" Width="46" Visibility="{Binding HasFlag, Converter={StaticResource VisibleIf}}">
+                    <Border BorderThickness="1" BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}" HorizontalAlignment="Left" VerticalAlignment="Center">
+                      <Image Source="{Binding Flag}" Height="20" MaxWidth="36" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality" />
+                    </Border>
+                  </Grid>
+                  <StackPanel>
+                    <TextBlock Text="{Binding Name}" FontWeight="SemiBold" TextTrimming="CharacterEllipsis" />
+                    <TextBlock Text="{Binding Detail}" Style="{StaticResource Caption}" TextTrimming="CharacterEllipsis" TextWrapping="NoWrap" />
+                  </StackPanel>
+                </DockPanel>
               </DataTemplate>
             </GridViewColumn.CellTemplate>
           </GridViewColumn>
