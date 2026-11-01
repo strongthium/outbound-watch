@@ -13,7 +13,7 @@ public sealed partial class SettingsPage : UserControl, IPage
     {
         InitializeComponent();
         foreach (var (label, _) in KeepChoices) Keep.Items.Add(label);
-        var version = typeof(App).Assembly.GetName().Version?.ToString(3) ?? "";
+        var version = typeof(App).Assembly.GetName().Version?.ToString(4) ?? "";
         VersionText.Text = $"outbound-watch {version} · MIT license · github.com/strongthium/outbound-watch";
     }
 

@@ -174,7 +174,7 @@ public sealed partial class App : Application
         http ??= new HttpClient { Timeout = TimeSpan.FromMinutes(5) };
         if (http.DefaultRequestHeaders.UserAgent.Count == 0)
         {
-            var version = typeof(App).Assembly.GetName().Version?.ToString(3) ?? "1.0.0";
+            var version = typeof(App).Assembly.GetName().Version?.ToString(4) ?? "1.0.0.0";
             http.DefaultRequestHeaders.UserAgent.ParseAdd($"outbound-watch/{version} (+https://github.com/strongthium/outbound-watch)");
         }
         LoadingPlaces = true;
