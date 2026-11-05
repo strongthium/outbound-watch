@@ -3,7 +3,7 @@
     Builds outbound-watch and puts the finished program in public\.
 
 .DESCRIPTION
-    Runs the tests, then publishes outbound-watch-win-x64-needs-dotnet.exe: about 3 MB, for x64 PCs, running on the
+    Runs the tests, then publishes outbound-watch.exe: about 3 MB, for x64 PCs, running on the
     .NET 10 Desktop Runtime installed on the PC (https://dotnet.microsoft.com/download/dotnet/10.0), which Microsoft
     Update keeps patched.
 
@@ -38,7 +38,7 @@ $versionFile = Join-Path $root 'VERSION'
 $public = Join-Path $root 'public'
 # dotnet publishes outside the repository first, so that public\ only changes once the build has worked.
 $out = Join-Path ([IO.Path]::GetTempPath()) 'outbound-watch-publish'
-$name = 'outbound-watch-win-x64-needs-dotnet.exe'
+$name = 'outbound-watch.exe'
 
 function Step([string] $text) { Write-Host "`n== $text" -ForegroundColor Cyan }
 
