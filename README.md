@@ -17,6 +17,8 @@ It runs on Windows 10 and 11, is one file of about 3 MB with nothing to install,
 
 ![Live](docs/live.png)
 
+**[The manual](docs/README.md)** goes through every window, with what each part does and how to use it.
+
 The connections open now, each with its program, the name it looked up, its network and country, how long it has been
 open, the bytes each way, and the expected list it's on. The pictures are of made-up sample data
 (`outbound-watch --sample`): see [Using it](#using-it).
@@ -168,7 +170,7 @@ administrator rights. If yours quarantines `outbound-watch`, check the file's `S
 
 **About** (the last page down the side) says who makes `outbound-watch`, with links to Strongthium, and asks GitHub whether there's a newer version. If there is, **Update** downloads the release, checks it against the release's `SHA256SUMS`, replaces the program and starts it again. The history, lists and settings are in their own folder, and stay as they are. If the program's folder can't be changed without an administrator, it says so, and **What's new** leads to the release to download by hand. The checksums come with the release, so they catch a damaged download, not a tampered release.
 
-GitHub is asked only when About is opened, again if it's still open an hour later, or when **Check again** is pressed. `api.github.com` sees that the question came from your address, and which program and version asked.
+GitHub is asked when About is first opened, after that only when it's opened an hour or more after the last answer, and when **Check again** is pressed. `api.github.com` sees that the question came from your address, and which program and version asked.
 
 ## Your data
 
@@ -219,9 +221,75 @@ dotnet run --project src/OutboundWatch -- --sample
 3. publishes release `v<VERSION>` with its zip and `SHA256SUMS`. A version is released once: to release
    again, raise it first (`build.ps1 -Bump revision`).
 
+## Strongthium open-source tools
+
+The other free, MIT-licensed tools from Strongthium Labs, each built by GitHub Actions from its source at [github.com/strongthium](https://github.com/strongthium):
+
+<table>
+  <tr>
+    <td width="64" align="center" valign="top">
+      <a href="https://github.com/strongthium/emudhra-security-patch"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/strongthium/.github/main/profile/icons/dark/certificate.svg"><img src="https://raw.githubusercontent.com/strongthium/.github/main/profile/icons/light/certificate.svg" width="48" height="48" alt="Strongthium eMudhra Security Patch icon"></picture></a>
+    </td>
+    <td valign="top">
+      <a href="https://github.com/strongthium/emudhra-security-patch"><b>Strongthium eMudhra Security Patch</b></a><br>
+      <sub><b>Certificate trust-store patch for Windows and Linux.</b> Finds eMudhra's G3B and G3C intermediate CAs, and the roots above them, and distrusts them.</sub>
+    </td>
+    <td width="64" align="center" valign="top">
+      <a href="https://github.com/strongthium/folder-size"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/strongthium/.github/main/profile/icons/dark/treemap.svg"><img src="https://raw.githubusercontent.com/strongthium/.github/main/profile/icons/light/treemap.svg" width="48" height="48" alt="Strongthium Folder Size icon"></picture></a>
+    </td>
+    <td valign="top">
+      <a href="https://github.com/strongthium/folder-size"><b>Strongthium Folder Size</b></a><br>
+      <sub><b>Fast disk space analyzer for Windows.</b> Every folder added up, largest first, as a tree, a treemap, the largest files and the space by type.</sub>
+    </td>
+  </tr>
+  <tr>
+    <td width="64" align="center" valign="top">
+      <a href="https://github.com/strongthium/health-reminder"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/strongthium/.github/main/profile/icons/dark/pill.svg"><img src="https://raw.githubusercontent.com/strongthium/.github/main/profile/icons/light/pill.svg" width="48" height="48" alt="Strongthium Health Reminder icon"></picture></a>
+    </td>
+    <td valign="top">
+      <a href="https://github.com/strongthium/health-reminder"><b>Strongthium Health Reminder</b></a><br>
+      <sub><b>Medication reminder, pill identifier and meal planner for Windows.</b> Insistent reminders of pills, meals and water, with a picture of the very pill to take.</sub>
+    </td>
+    <td width="64" align="center" valign="top">
+      <a href="https://github.com/strongthium/host-dossier"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/strongthium/.github/main/profile/icons/dark/dossier.svg"><img src="https://raw.githubusercontent.com/strongthium/.github/main/profile/icons/light/dossier.svg" width="48" height="48" alt="Strongthium Host Dossier icon"></picture></a>
+    </td>
+    <td valign="top">
+      <a href="https://github.com/strongthium/host-dossier"><b>Strongthium Host Dossier</b></a><br>
+      <sub><b>Domain and IP lookup tool for Windows and Linux.</b> WHOIS, DNS, TLS, open ports and every mail record of a domain or an address, in one report.</sub>
+    </td>
+  </tr>
+  <tr>
+    <td width="64" align="center" valign="top">
+      <a href="https://github.com/strongthium/raw-convert"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/strongthium/.github/main/profile/icons/dark/camera.svg"><img src="https://raw.githubusercontent.com/strongthium/.github/main/profile/icons/light/camera.svg" width="48" height="48" alt="Strongthium RAW Convert icon"></picture></a>
+    </td>
+    <td valign="top">
+      <a href="https://github.com/strongthium/raw-convert"><b>Strongthium RAW Convert</b></a><br>
+      <sub><b>Batch CR2 to PNG and TIFF converter for Windows.</b> Folders of Canon RAW photos made lossless PNG or TIFF at full size, with the date, camera and GPS kept.</sub>
+    </td>
+    <td width="64" align="center" valign="top">
+      <a href="https://github.com/strongthium/video-dispatch"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/strongthium/.github/main/profile/icons/dark/video.svg"><img src="https://raw.githubusercontent.com/strongthium/.github/main/profile/icons/light/video.svg" width="48" height="48" alt="Strongthium Video Dispatch icon"></picture></a>
+    </td>
+    <td valign="top">
+      <a href="https://github.com/strongthium/video-dispatch"><b>Strongthium Video Dispatch</b></a><br>
+      <sub><b>TikTok and YouTube uploader and video editor for Windows.</b> One video queued to TikTok, YouTube and Shorts, cut and trimmed with Windows' own tools.</sub>
+    </td>
+  </tr>
+  <tr>
+    <td width="64" align="center" valign="top">
+      <a href="https://github.com/strongthium/webdav-server"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/strongthium/.github/main/profile/icons/dark/webdav.svg"><img src="https://raw.githubusercontent.com/strongthium/.github/main/profile/icons/light/webdav.svg" width="48" height="48" alt="Strongthium WebDAV Server icon"></picture></a>
+    </td>
+    <td valign="top">
+      <a href="https://github.com/strongthium/webdav-server"><b>Strongthium WebDAV Server</b></a><br>
+      <sub><b>Self-hosted WebDAV server for Linux and Windows.</b> Files by user or by path, Nextcloud-compatible, with bans and IP, ASN and country whitelists.</sub>
+    </td>
+    <td></td>
+    <td></td>
+  </tr>
+</table>
+
 ## More from Strongthium
 
-Strongthium Labs also makes software for running your own servers and Windows PCs, and for talking to your customers, at [strongthium.com](https://strongthium.com):
+Strongthium Labs also makes software for running your own servers and Windows PCs, for talking to your customers, and for billing your hours, at [strongthium.com](https://strongthium.com):
 
 <table>
   <tr>
